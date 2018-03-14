@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 1cb2d03fed57a5d43a3ec9d32ec72c0d
+timeCreated: 1492291448
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Ghost Theory
+  fontNames:
+  - Ghost Theory
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: dcb59e1be613ba24f9f22f9b633879ae
+timeCreated: 1491397834
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: VIKING, MIDDLE Runes
+  fontNames:
+  - VIKING, MIDDLE Runes
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
