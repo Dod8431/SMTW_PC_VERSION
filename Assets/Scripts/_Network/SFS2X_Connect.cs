@@ -95,8 +95,7 @@ public class SFS2X_Connect : MonoBehaviour {
 	void P1Entrance()
 	{
 		ISFSObject P1_Entrance = new SFSObject ();
-		P1_Entrance.PutBool ("check", true);
+		P1_Entrance.PutBool ("P1_Entrance", true);
 		sfs.Send (new ObjectMessageRequest (P1_Entrance));
-		Debug.Log ("cc");
 	}
 }
