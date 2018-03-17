@@ -25,7 +25,7 @@ public class Objectives : MonoBehaviour
 void Start()
 {
 
-    //Puzzle_1_First_Generation();
+    Puzzle_1_First_Generation();
 }
 
 void Update()
