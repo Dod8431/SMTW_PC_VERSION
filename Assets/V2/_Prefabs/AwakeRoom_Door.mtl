@@ -1,0 +1,11 @@
+newmtl Default_Prototype
+map_Kd GridBox_Default.png
+Kd 1 1 1
+d 1
+
+newmtl Wall_Texture
+map_Kd stone_3_2048x2048.jpg
+bump NormalMap.png
+Kd 1 1 1
+d 1
+

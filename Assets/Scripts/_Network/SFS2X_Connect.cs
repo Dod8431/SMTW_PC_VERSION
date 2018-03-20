@@ -20,6 +20,8 @@ public class SFS2X_Connect : MonoBehaviour {
 
 	public GameObject pz1controller;
 
+	public bool awakeroomdoor = false;
+
 	SmartFox sfs;
 
 	void Awake()
@@ -88,6 +90,8 @@ public class SFS2X_Connect : MonoBehaviour {
 	void OnObjectMessage(BaseEvent evt)
 	{
 		ISFSObject pz1valid = (SFSObject)evt.Params ["message"];
+		ISFSObject AwkRoom_Door = (SFSObject)evt.Params ["message"];
+		awakeroomdoor = AwkRoom_Door.GetBool ("awakeroomopendoor");
 		pz1controller.GetComponent<PZ1Controller> ().pz1entrancevalidate = pz1valid.GetBool ("pz1entrancecomplete");
 
 	}
@@ -97,5 +101,12 @@ public class SFS2X_Connect : MonoBehaviour {
 		ISFSObject P1_Entrance = new SFSObject ();
 		P1_Entrance.PutBool ("P1_Entrance", true);
 		sfs.Send (new ObjectMessageRequest (P1_Entrance));
+	}
+
+	void AwakeRoomVeaNear()
+	{
+		ISFSObject markglow = new SFSObject ();
+		markglow.PutBool ("markglow", true);
+		sfs.Send (new ObjectMessageRequest (markglow));
 	}
 }

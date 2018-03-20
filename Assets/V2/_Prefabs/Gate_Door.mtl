@@ -1,0 +1,18 @@
+newmtl Default_Prototype
+map_Kd GridBox_Default.png
+Kd 1 1 1
+d 1
+
+newmtl Mayan_Ornament_Mat
+map_Kd Mayan_Ornament_Tex.jpg
+bump Mayan_Ornament_Normal.png
+disp Mayan_Ornament_Displacement.png
+Kd 1 1 1
+d 1
+
+newmtl Dalle_Tex
+map_Kd 9149fd21eb9f2d7266d7bd38f72e36bf--stone-slab-landscaping.jpg
+bump NormalMap (3).png
+Kd 1 1 1
+d 1
+
