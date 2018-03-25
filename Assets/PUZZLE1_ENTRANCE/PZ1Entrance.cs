@@ -4,15 +4,33 @@ using UnityEngine;
 
 public class PZ1Entrance : MonoBehaviour {
 
-	public GameObject veatracker;
-	public GameObject veapos;
-	public GameObject veawaypoint;
+	public GameObject veapillar;
+	public GameObject veaplayer;
+	public GameObject particles;
+	private bool check = false;
+	private bool check2 = false;
 
-	void OnTriggerEnter(Collider other)
+	void OnTriggerStay(Collider other)
 	{
-		veatracker.GetComponent<VeaFollow> ().anim.Play ("VEA_CENTER");
-		veatracker.GetComponent<VeaFollow> ().wayPoint = veawaypoint;
-		GameObject.Find ("Network_Manager").GetComponent<SFS2X_Connect> ().BroadcastMessage ("P1Entrance");
-		Destroy (this);
+		if (check == false && check2 == false) {
+			particles.SetActive (true);
+			check = true;
+		}
+
+		if(Input.GetKey(KeyCode.E))
+		{
+			veapillar.SetActive (true);
+			veaplayer.SetActive (false);
+			check2 = true;
+		}
 	}
+
+	void OnTriggerExit(Collider other)
+	{
+		check = false;
+		particles.SetActive (false);
+	}
+		
 }
+
+	
