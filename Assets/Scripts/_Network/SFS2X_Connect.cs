@@ -21,6 +21,8 @@ public class SFS2X_Connect : MonoBehaviour {
 	public GameObject pz1controller;
 
 	public bool awakeroomdoor = false;
+	public float veaposx;
+	public float veaposz;
 
 	SmartFox sfs;
 
@@ -91,16 +93,58 @@ public class SFS2X_Connect : MonoBehaviour {
 	{
 		ISFSObject pz1valid = (SFSObject)evt.Params ["message"];
 		ISFSObject AwkRoom_Door = (SFSObject)evt.Params ["message"];
+		ISFSObject veapos = (SFSObject)evt.Params ["message"];
+		veaposx = veapos.GetFloat ("PZ2Mazex");
+		veaposz = veapos.GetFloat ("PZ2Mazez");
 		awakeroomdoor = AwkRoom_Door.GetBool ("awakeroomopendoor");
 		pz1controller.GetComponent<PZ1Controller> ().pz1entrancevalidate = pz1valid.GetBool ("pz1entrancecomplete");
 
 	}
 
+	void MainScene()
+	{
+		ISFSObject MainScene = new SFSObject ();
+		MainScene.PutBool ("MainScene", true);
+		MainScene.PutInt ("sceneIndex", 2);
+		sfs.Send (new ObjectMessageRequest (MainScene));
+	}
+
 	void P1Entrance()
 	{
 		ISFSObject P1_Entrance = new SFSObject ();
-		P1_Entrance.PutBool ("P1_Entrance", true);
+		P1_Entrance.PutBool ("P1_Puzzle", true);
+		P1_Entrance.PutInt ("sceneIndex", 5);
 		sfs.Send (new ObjectMessageRequest (P1_Entrance));
+	}
+
+	void P1RiddleEntrance()
+	{
+		ISFSObject P1RiddleEntrance = new SFSObject ();
+		P1RiddleEntrance.PutBool ("P1_Entrance", true);
+		P1RiddleEntrance.PutInt ("sceneIndex", 4);
+		sfs.Send (new ObjectMessageRequest (P1RiddleEntrance));
+	}
+
+	void P2Entrance()
+	{
+		ISFSObject P2Entrance = new SFSObject ();
+		P2Entrance.PutBool ("P2_Puzzle", true);
+		P2Entrance.PutInt ("sceneIndex", 6);
+		sfs.Send (new ObjectMessageRequest (P2Entrance));
+	}
+
+	void P2MiniGame()
+	{
+		ISFSObject P2MiniGame = new SFSObject ();
+		P2MiniGame.PutBool ("P2_Puzzle_Minigame", true);
+		sfs.Send (new ObjectMessageRequest (P2MiniGame));
+	}
+
+	void Maze()
+	{
+		ISFSObject Maze = new SFSObject ();
+		Maze.PutBool ("Maze", true);
+		sfs.Send (new ObjectMessageRequest (Maze));
 	}
 
 	void AwakeRoomVeaNear()
@@ -108,5 +152,19 @@ public class SFS2X_Connect : MonoBehaviour {
 		ISFSObject markglow = new SFSObject ();
 		markglow.PutBool ("markglow", true);
 		sfs.Send (new ObjectMessageRequest (markglow));
+	}
+
+	public void Narrative(string narrative_content)
+	{
+		ISFSObject narrative = new SFSObject ();
+		narrative.PutUtfString("narrativecontent",narrative_content);
+		sfs.Send (new ObjectMessageRequest (narrative));
+	}
+
+	public void CA_LoadScene(int index)
+	{
+		ISFSObject indexScene = new SFSObject ();
+		indexScene.PutInt ("sceneIndex", index);
+		sfs.Send (new ObjectMessageRequest (indexScene));
 	}
 }

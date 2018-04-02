@@ -376,7 +376,7 @@ namespace UnityEditor.PostProcessing
                 // Draw
                 if (state.showNonEditableHandles)
                 {
-                    if (e.type == EventType.Repaint)
+					if (e.type == EventType.Repaint)
                     {
                         var selectedColor = (isCurrentlySelectedCurve && isCurrentlySelectedKeyframe)
                             ? settings.selectionColor
@@ -422,7 +422,7 @@ namespace UnityEditor.PostProcessing
                     }
 
                     // Keyframe selection & context menu
-                    if (e.type == EventType.MouseDown && rect.Contains(e.mousePosition))
+					if (e.type == EventType.MouseDown && rect.Contains(e.mousePosition))
                     {
                         if (hitRect.Contains(e.mousePosition))
                         {
@@ -499,7 +499,7 @@ namespace UnityEditor.PostProcessing
             var e = Event.current;
 
             // Selection
-			if (e.type == EventType.MouseDown)
+            if (e.type == EventType.MouseDown)
             {
                 GUI.FocusControl(null);
                 m_SelectedCurve = null;

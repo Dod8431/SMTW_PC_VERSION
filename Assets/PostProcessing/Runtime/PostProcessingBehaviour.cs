@@ -17,7 +17,6 @@ namespace UnityEngine.PostProcessing
         public PostProcessingProfile profile;
 
         public Func<Vector2, Matrix4x4> jitteredMatrixFunc;
-        Matrix4x4 nonJitteredProjectionMatrix;
 
         // Internal helpers
         Dictionary<Type, KeyValuePair<CameraEvent, CommandBuffer>> m_CommandBuffers;
@@ -36,6 +35,7 @@ namespace UnityEngine.PostProcessing
         BuiltinDebugViewsComponent m_DebugViews;
         AmbientOcclusionComponent m_AmbientOcclusion;
         ScreenSpaceReflectionComponent m_ScreenSpaceReflection;
+        FogComponent m_FogComponent;
         MotionBlurComponent m_MotionBlur;
         TaaComponent m_Taa;
         EyeAdaptationComponent m_EyeAdaptation;
@@ -63,6 +63,7 @@ namespace UnityEngine.PostProcessing
             m_DebugViews = AddComponent(new BuiltinDebugViewsComponent());
             m_AmbientOcclusion = AddComponent(new AmbientOcclusionComponent());
             m_ScreenSpaceReflection = AddComponent(new ScreenSpaceReflectionComponent());
+            m_FogComponent = AddComponent(new FogComponent());
             m_MotionBlur = AddComponent(new MotionBlurComponent());
             m_Taa = AddComponent(new TaaComponent());
             m_EyeAdaptation = AddComponent(new EyeAdaptationComponent());
@@ -117,6 +118,7 @@ namespace UnityEngine.PostProcessing
             m_DebugViews.Init(context, profile.debugViews);
             m_AmbientOcclusion.Init(context, profile.ambientOcclusion);
             m_ScreenSpaceReflection.Init(context, profile.screenSpaceReflection);
+            m_FogComponent.Init(context, profile.fog);
             m_MotionBlur.Init(context, profile.motionBlur);
             m_Taa.Init(context, profile.antialiasing);
             m_EyeAdaptation.Init(context, profile.eyeAdaptation);
@@ -141,7 +143,7 @@ namespace UnityEngine.PostProcessing
 
             // Find out which camera flags are needed before rendering begins
             // Note that motion vectors will only be available one frame after being enabled
-            var flags = DepthTextureMode.None;
+            var flags = context.camera.depthTextureMode;
             foreach (var component in m_Components)
             {
                 if (component.active)
@@ -152,10 +154,7 @@ namespace UnityEngine.PostProcessing
 
             // Temporal antialiasing jittering, needs to happen before culling
             if (!m_RenderingInSceneView && m_Taa.active && !profile.debugViews.willInterrupt)
-            {
-                nonJitteredProjectionMatrix = m_Context.camera.projectionMatrix;
                 m_Taa.SetProjectionMatrix(jitteredMatrixFunc);
-            }
         }
 
         void OnPreRender()
@@ -167,6 +166,7 @@ namespace UnityEngine.PostProcessing
             TryExecuteCommandBuffer(m_DebugViews);
             TryExecuteCommandBuffer(m_AmbientOcclusion);
             TryExecuteCommandBuffer(m_ScreenSpaceReflection);
+            TryExecuteCommandBuffer(m_FogComponent);
 
             if (!m_RenderingInSceneView)
                 TryExecuteCommandBuffer(m_MotionBlur);
@@ -178,12 +178,10 @@ namespace UnityEngine.PostProcessing
                 return;
 
             if (!m_RenderingInSceneView && m_Taa.active && !profile.debugViews.willInterrupt)
-                m_Context.camera.projectionMatrix = nonJitteredProjectionMatrix;
+                m_Context.camera.ResetProjectionMatrix();
         }
 
         // Classic render target pipeline for RT-based effects
-        // Note that any effect that happens after this stack will work in LDR
-        [ImageEffectTransformsToLDR]
         void OnRenderImage(RenderTexture source, RenderTexture destination)
         {
             if (profile == null || m_Camera == null)
@@ -220,17 +218,19 @@ namespace UnityEngine.PostProcessing
                 dst = m_RenderTextureFactory.Get(src);
 #endif
 
-            Texture autoExposure = null;
+            Texture autoExposure = GraphicsUtils.whiteTexture;
             if (m_EyeAdaptation.active)
             {
                 uberActive = true;
                 autoExposure = m_EyeAdaptation.Prepare(src, uberMaterial);
             }
 
+            uberMaterial.SetTexture("_AutoExposure", autoExposure);
+
             if (dofActive)
             {
                 uberActive = true;
-                m_DepthOfField.Prepare(src, uberMaterial, taaActive);
+                m_DepthOfField.Prepare(src, uberMaterial, taaActive, m_Taa.jitterVector, m_Taa.model.settings.taaSettings.motionBlending);
             }
 
             if (m_Bloom.active)
@@ -326,10 +326,6 @@ namespace UnityEngine.PostProcessing
                 DisableComponents();
 
             m_Components.Clear();
-
-            // Reset camera mode
-            if (m_Camera != null)
-                m_Camera.depthTextureMode = DepthTextureMode.None;
 
             // Factories
             m_MaterialFactory.Dispose();

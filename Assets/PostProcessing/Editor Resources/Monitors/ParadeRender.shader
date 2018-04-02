@@ -3,6 +3,8 @@ Shader "Hidden/Post FX/Monitors/Parade Render"
     SubShader
     {
         ZTest Always Cull Off ZWrite Off
+        Fog { Mode off }
+
         CGINCLUDE
 
             #pragma fragmentoption ARB_precision_hint_fastest

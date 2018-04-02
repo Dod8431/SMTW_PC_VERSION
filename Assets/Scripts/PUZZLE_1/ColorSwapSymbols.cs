@@ -4,24 +4,34 @@ using UnityEngine;
 
 public class ColorSwapSymbols : MonoBehaviour 
 {
-public Renderer rend;
-public Color color_blue;
-public bool symbolcolor;
-private bool end = false;
-private Shader yolo;
+	private Renderer rend;
+	public bool symbolcolor;
+	public bool activate;
 
-
-		void Start () 
-		{
-			rend = GetComponent<Renderer>();
-		}
+	void Start () 
+	{
+		rend = GetComponent<Renderer>();
+	}
 	
 	void Update () 
 	{
-		if(symbolcolor == true & end == false)
+
+		activate = GameObject.Find ("Player").GetComponent<TriggersPlayer> ().activate;
+		if (activate == false) {
+			rend.material.SetColor ("_Color", Color.clear);
+			rend.material.SetColor ("_MKGlowTexColor", Color.clear);
+			rend.material.SetColor ("_MKGlowColor", Color.clear);
+		} else {
+			rend.material.SetColor ("_Color", Color.white);
+			rend.material.SetColor ("_MKGlowTexColor", Color.white);
+			rend.material.SetColor ("_MKGlowColor", Color.white);
+		}
+
+		if(symbolcolor == true && activate == true)
 		{
-			rend.material.SetColor( "_Color", Color.cyan); 
-			end = true;
+			rend.material.SetColor ("_Color", Color.cyan);
+			rend.material.SetColor ("_MKGlowTexColor", Color.cyan);
+			rend.material.SetColor ("_MKGlowColor", Color.cyan);
 		}
 
 	}

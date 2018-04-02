@@ -1,0 +1,13 @@
+newmtl Wall_Texture
+map_Kd stone_3_2048x2048.jpg
+bump NormalMap.png
+Kd 1 1 1
+d 1
+
+newmtl Mayan_Ornament_Mat
+map_Kd Mayan_Ornament_Tex.jpg
+bump Mayan_Ornament_Normal.png
+disp Mayan_Ornament_Displacement.png
+Kd 1 1 1
+d 1
+

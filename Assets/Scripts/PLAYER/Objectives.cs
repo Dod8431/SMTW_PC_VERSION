@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Objectives : MonoBehaviour
 {
+	public SFS2X_Connect sfs;
+
     public List<GameObject> puzzle_1_symbols; 
     public List<Transform> puzzle_1_symbols_transform;
     public List <GameObject> puzzle_1_dalles;
@@ -15,16 +17,16 @@ public class Objectives : MonoBehaviour
     public List<Transform> puzzle_1_line5;
     public AudioClip son_ouverture_porte;
 	public GameObject puzzle1door;
-    public bool entrance_puzzle1 = false;
 
     public GameObject respawn_puzzle_1;
     public int objective_puzzle_1;
     public int objective_puzzle_2;
     private bool p1f = true;
+	public GameObject pillaractivation;
   
 void Start()
 {
-
+		sfs = GameObject.Find ("Network_Manager").GetComponent<SFS2X_Connect> ();
     Puzzle_1_First_Generation();
 }
 
@@ -32,18 +34,12 @@ void Update()
 {
         if(objective_puzzle_1 > 4 && p1f == true)
         {
-			puzzle1door.GetComponentInParent<AudioSource>().enabled = true;
-			puzzle1door.GetComponent<Animator>().Play("DOOR_OPEN");
+			puzzle1door.GetComponent<Animator>().Play("Door_Open");
+			pillaractivation.GetComponent<Puzzle1_Activation> ().pillarsandsymbols.GetComponent<Animator> ().StopPlayback ();
+			sfs.BroadcastMessage ("MainScene");
             p1f = false;
+			Destroy (pillaractivation);
         }
-
-        if(entrance_puzzle1 == true)
-        {      
-            Puzzle_1_First_Generation();
-            entrance_puzzle1 = false;
-        }
-        
-        
 }
     
 public void Puzzle_1_First_Generation()
@@ -62,11 +58,11 @@ public void Puzzle_1_First_Generation()
     int[] linefinal = {line_1picker, line_2picker, line_3picker, line_4picker, line_5picker};
     //
     //Calcul Line
-    int[] liner1 = {2,3,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25};
-    int[] liner2 = {2,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25};
-    int[] liner3 = {3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25};
-    int[] liner4 = {0,1,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25};
-    int[] liner5 = {0,1,3,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25};
+    int[] liner1 = {0,1,3,4,6,7,8,9,10,12,14,15,16,17,18,19,20,21,22,23};
+	int[] liner2 = {0,1,2,3,4,6,7,8,10,12,13,14,15,16,17,18,19,20,21,22,23};
+	int[] liner3 = {0,1,3,4,5,6,8,9,10,11,12,14,15,16,17,18,19,20,21,22,23};
+	int[] liner4 = {0,1,2,3,4,5,6,8,10,11,12,13,14,15,16,17,18,19,20,21,22,23};
+	int[] liner5 = {0,1,3,4,5,6,8,9,10,12,13,14,15,16,17,18,19,20,21,22,23};
     //
     //Calcul Alphabet
     List<int> line_1 = CreateList(0, 1, 2, 3, 4);
@@ -116,7 +112,7 @@ public void Puzzle_1_First_Generation()
     for(int i = 0 ; i <= 3 ; i++)
     {
         int l1pick = line_1[Random.Range(0,line_1.Count)];
-        Instantiate(puzzle_1_dalles[liner1[Random.Range(0,21)]], puzzle_1_line1[l1pick].position, puzzle_1_line1[l1pick].rotation, GameObject.Find("Line1").GetComponent<Transform>());
+        Instantiate(puzzle_1_dalles[liner1[Random.Range(0,19)]], puzzle_1_line1[l1pick].position, puzzle_1_line1[l1pick].rotation, GameObject.Find("Line1").GetComponent<Transform>());
         line_1.Remove(l1pick);
     }
     if(line_1picker == 0)
@@ -141,7 +137,7 @@ public void Puzzle_1_First_Generation()
     for(int i = 0 ; i <= 3 ; i++)
     {
         int l2pick = line_2[Random.Range(0,line_2.Count)];
-        Instantiate(puzzle_1_dalles[liner2[Random.Range(0,22)]], puzzle_1_line2[l2pick].position, puzzle_1_line2[l2pick].rotation, GameObject.Find("Line2").GetComponent<Transform>());
+        Instantiate(puzzle_1_dalles[liner2[Random.Range(0,20)]], puzzle_1_line2[l2pick].position, puzzle_1_line2[l2pick].rotation, GameObject.Find("Line2").GetComponent<Transform>());
         line_2.Remove(l2pick);
     }
     if(line_2picker == 1)
@@ -161,7 +157,7 @@ public void Puzzle_1_First_Generation()
     for(int i = 0 ; i <= 3 ; i++)
     {
         int l3pick = line_3[Random.Range(0,line_3.Count)];
-        Instantiate(puzzle_1_dalles[liner3[Random.Range(0,22)]], puzzle_1_line3[l3pick].position, puzzle_1_line3[l3pick].rotation, GameObject.Find("Line3").GetComponent<Transform>());
+        Instantiate(puzzle_1_dalles[liner3[Random.Range(0,20)]], puzzle_1_line3[l3pick].position, puzzle_1_line3[l3pick].rotation, GameObject.Find("Line3").GetComponent<Transform>());
         line_3.Remove(l3pick);
     }
     if(line_3picker == 0)
@@ -181,7 +177,7 @@ public void Puzzle_1_First_Generation()
     for(int i = 0 ; i <= 3 ; i++)
     {
         int l4pick = line_4[Random.Range(0,line_4.Count)];
-        Instantiate(puzzle_1_dalles[liner4[Random.Range(0,23)]], puzzle_1_line4[l4pick].position, puzzle_1_line4[l4pick].rotation, GameObject.Find("Line4").GetComponent<Transform>());
+        Instantiate(puzzle_1_dalles[liner4[Random.Range(0,21)]], puzzle_1_line4[l4pick].position, puzzle_1_line4[l4pick].rotation, GameObject.Find("Line4").GetComponent<Transform>());
         line_4.Remove(l4pick);
     }
     if(line_4picker == 2)
@@ -197,7 +193,7 @@ public void Puzzle_1_First_Generation()
     for(int i = 0 ; i <= 3 ; i++)
     {
         int l5pick = line_5[Random.Range(0,line_5.Count)];
-        Instantiate(puzzle_1_dalles[liner5[Random.Range(0,22)]], puzzle_1_line5[l5pick].position, puzzle_1_line5[l5pick].rotation, GameObject.Find("Line5").GetComponent<Transform>());
+        Instantiate(puzzle_1_dalles[liner5[Random.Range(0,20)]], puzzle_1_line5[l5pick].position, puzzle_1_line5[l5pick].rotation, GameObject.Find("Line5").GetComponent<Transform>());
         line_5.Remove(l5pick);
     }
     if(line_5picker == 0)

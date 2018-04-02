@@ -3,6 +3,7 @@ Shader "Hidden/Post FX/Monitors/Vectorscope Render"
     SubShader
     {
         ZTest Always Cull Off ZWrite Off
+        Fog { Mode off }
 
         CGINCLUDE
 

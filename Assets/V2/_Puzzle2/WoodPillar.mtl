@@ -1,0 +1,11 @@
+newmtl bark__1__seamless__mp
+map_Kd bark__1__seamless__mp.jpg
+bump NormalMap (2).png
+Kd 1 1 1
+d 1
+
+newmtl Glow_Pillar_Mat
+map_Kd MKDemoTex4.png
+Kd 0.2 1 0.9686275
+d 1
+
