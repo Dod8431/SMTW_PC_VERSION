@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using EZCameraShake;
 
 public class AwakeRoom_Door : MonoBehaviour {
 
@@ -13,7 +14,7 @@ public class AwakeRoom_Door : MonoBehaviour {
 	void Update () 
 	{
 		if (network.awakeroomdoor == true) {
-			Debug.Log ("cc");
+			CameraShaker.Instance.ShakeOnce (4f, 10f, 0.1f, 6f);
 			GetComponent<Animator> ().Play ("Door_Open");
 			network.awakeroomdoor = false;
 		}

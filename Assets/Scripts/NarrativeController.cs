@@ -1,15 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using EZCameraShake;
 
 public class NarrativeController : MonoBehaviour {
 
 	public SFS2X_Connect sfs;
-	public string narrative_content;
+	public int narrative_index;
 
 	public GameObject vea;
 	public GameObject player;
 	public GameObject narrative_waypoint;
+
+	public GameObject door;
 
 	private bool check = false;
 
@@ -22,19 +25,29 @@ public class NarrativeController : MonoBehaviour {
 	void OnTriggerEnter(Collider other)
 	{
 		if (other.tag == "Player" && check == false) {
+			Debug.Log ("cc");
 			vea.GetComponent<VeaFollow>().wayPoint = narrative_waypoint;
 			vea.GetComponent<Animator> ().enabled = false;
-			Debug.Log (narrative_content);
-			//sfs.Narrative (narrative_content);
+			sfs.Narrative (narrative_index);
+			StartCoroutine(WaitAndOpen ());
 			check = true;
 		}
 	}
-
+		
 	void OnTriggerExit(Collider other)
 	{
 		if (other.tag == "Player") {
 			vea.GetComponent<Animator> ().enabled = true;
 			vea.GetComponent<VeaFollow>().wayPoint = player;
 		}
+	}
+
+	IEnumerator WaitAndOpen()
+	{
+		yield return new WaitForSeconds (10);
+		CameraShaker.Instance.ShakeOnce (1.15f, 3f, 0.1f, 5f);
+		door.GetComponent<Animator> ().Play ("Open_Door");
+		door.GetComponent<Animator> ().Play ("Door_Open");
+		StopAllCoroutines ();
 	}
 }

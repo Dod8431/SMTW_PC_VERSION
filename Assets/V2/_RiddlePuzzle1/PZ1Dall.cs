@@ -14,6 +14,7 @@ public class PZ1Dall : MonoBehaviour {
 	void Update()
 	{
 		if (pz1controller.GetComponent<PZ1Controller> ().pz1entrancevalidate == true) {
+			
 			this.transform.GetChild (0).transform.GetChild (0).gameObject.SetActive (true);
 		}
 	}

@@ -154,10 +154,13 @@ public class SFS2X_Connect : MonoBehaviour {
 		sfs.Send (new ObjectMessageRequest (markglow));
 	}
 
-	public void Narrative(string narrative_content)
+	public void Narrative(int narrative_index)
 	{
+		Debug.Log ("send");
 		ISFSObject narrative = new SFSObject ();
-		narrative.PutUtfString("narrativecontent",narrative_content);
+		narrative.PutBool ("Narrative", true);
+		narrative.PutInt ("narrativeIndex", narrative_index);
+		narrative.PutInt ("sceneIndex", 3);
 		sfs.Send (new ObjectMessageRequest (narrative));
 	}
 

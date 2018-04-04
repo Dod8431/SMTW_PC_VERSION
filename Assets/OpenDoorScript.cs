@@ -1,15 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using EZCameraShake;
 
 public class OpenDoorScript : MonoBehaviour {
 
 	public GameObject door;
 	
-	void OnTriggerStay()
+	void OnTriggerEnter()
 	{
-		if (Input.GetKey (KeyCode.E)) {
-			door.GetComponent<Animator> ().Play ("Door_Open");
-		}
+		door.GetComponent<Animator> ().Play ("Door_Open");
+		CameraShaker.Instance.ShakeOnce (3f, 7f, 0.1f, 6f);
 	}	
 }

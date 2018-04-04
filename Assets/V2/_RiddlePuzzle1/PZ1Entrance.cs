@@ -24,7 +24,7 @@ public class PZ1Entrance : MonoBehaviour {
 	void OnTriggerStay(Collider other)
 	{
 		if (check == false && check2 == false) {
-			particles.SetActive (true);
+			particles.GetComponent<Animator> ().Play ("ParticleActivate");
 			check = true;
 		}
 
@@ -49,7 +49,7 @@ public class PZ1Entrance : MonoBehaviour {
 	void OnTriggerExit(Collider other)
 	{
 		check = false;
-		particles.SetActive (false);
+		particles.GetComponent<Animator> ().Play ("ParticleDesactivate");
 	}
 		
 }

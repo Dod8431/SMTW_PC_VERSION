@@ -12,6 +12,7 @@ public class TriggersPlayer : MonoBehaviour
 	private GameObject m_Player;
 	public Transform m_Respawn;
 	public bool activate;
+	public GameObject error_sfx_puzzle_1;
 
 	void Start()
 	{
@@ -21,6 +22,7 @@ public class TriggersPlayer : MonoBehaviour
 
 	IEnumerator Wait(Transform respawn)
 	{
+		error_sfx_puzzle_1.SetActive (true);
 		GameObject.Find("ScreenFade").GetComponent<Animator>().Play("FadeIn");
 		yield return new WaitForSeconds(0.3f);
 		m_Player.transform.position = respawn.position;
@@ -35,6 +37,7 @@ public class TriggersPlayer : MonoBehaviour
 		yield return new WaitForSeconds (1.2f);
 		GameObject.Find("ScreenFade").GetComponent<Animator>().Play("FadeOut");
 		yield return new WaitForSeconds (0.2f);
+		error_sfx_puzzle_1.SetActive (false);
 
 	}
 
