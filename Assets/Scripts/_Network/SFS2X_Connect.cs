@@ -23,6 +23,7 @@ public class SFS2X_Connect : MonoBehaviour {
 	public bool awakeroomdoor = false;
 	public float veaposx;
 	public float veaposz;
+	public bool narrative;
 
 	SmartFox sfs;
 
@@ -99,6 +100,13 @@ public class SFS2X_Connect : MonoBehaviour {
 		awakeroomdoor = AwkRoom_Door.GetBool ("awakeroomopendoor");
 		pz1controller.GetComponent<PZ1Controller> ().pz1entrancevalidate = pz1valid.GetBool ("pz1entrancecomplete");
 
+	}
+
+	public void ButtonPuzzle2_Send(string button, bool value)
+	{
+		ISFSObject ButtonP2 = new SFSObject ();
+		ButtonP2.PutBool ("button", value);
+		sfs.Send (new ObjectMessageRequest (ButtonP2));
 	}
 
 	void MainScene()
