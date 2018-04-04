@@ -28,10 +28,11 @@ public class Puzzle2_Controller : MonoBehaviour {
 
 		if (code.Length == 4 && code != "3412") {
 			code = "";
-			button1.GetComponent<PZ1Dall> ().BroadcastMessage ("Reboot");
-			button2.GetComponent<PZ1Dall> ().BroadcastMessage ("Reboot");
-			button3.GetComponent<PZ1Dall> ().BroadcastMessage ("Reboot");
-			button4.GetComponent<PZ1Dall> ().BroadcastMessage ("Reboot");
+			StartCoroutine (Error ());
+			button1.GetComponent<Puzzle2_Button> ().BroadcastMessage ("Reboot");
+			button2.GetComponent<Puzzle2_Button> ().BroadcastMessage ("Reboot");
+			button3.GetComponent<Puzzle2_Button> ().BroadcastMessage ("Reboot");
+			button4.GetComponent<Puzzle2_Button> ().BroadcastMessage ("Reboot");
 		}
 	}
 
@@ -45,6 +46,19 @@ public class Puzzle2_Controller : MonoBehaviour {
 		yield return new WaitForSeconds (0.25f);
 		woodpillar4.GetComponent<Animator> ().Play ("WoodPillarValidate");
 		yield return new WaitForSeconds (0.25f);
+
+	}
+
+	IEnumerator Error()
+	{
+		woodpillar1.GetComponent<Animator> ().Play ("WoodPillarError");
+		yield return new WaitForSeconds (0.125f);
+		woodpillar2.GetComponent<Animator> ().Play ("WoodPillarError");
+		yield return new WaitForSeconds (0.125f);
+		woodpillar3.GetComponent<Animator> ().Play ("WoodPillarError");
+		yield return new WaitForSeconds (0.125f);
+		woodpillar4.GetComponent<Animator> ().Play ("WoodPillarError");
+		yield return new WaitForSeconds (0.125f);
 
 	}
 }

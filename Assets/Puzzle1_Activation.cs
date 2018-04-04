@@ -53,14 +53,14 @@ public class Puzzle1_Activation : MonoBehaviour {
 
 	void Update()
 	{
-		if (check2 == true) {
+		/*if (check2 == true) {
 			StartCoroutine (Timer ());
 		} else {
 			StopAllCoroutines ();
-		}
+		}*/
 	}
 
-	IEnumerator Timer()
+	/*IEnumerator Timer()
 	{
 		Debug.Log ("cc");
 		yield return new WaitForSeconds (120);
@@ -71,5 +71,5 @@ public class Puzzle1_Activation : MonoBehaviour {
 		veaplayer.SetActive (true);
 		player.GetComponent<TriggersPlayer> ().activate = false;
 		check2 = false;
-	}
+	}*/
 }
