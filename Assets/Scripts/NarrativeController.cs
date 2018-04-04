@@ -22,14 +22,20 @@ public class NarrativeController : MonoBehaviour {
 		sfs = GameObject.Find ("Network_Manager").GetComponent<SFS2X_Connect> ();
 	}
 
+	void Update()
+	{
+		if (sfs.narrative == true) {
+			StartCoroutine (WaitAndOpen ());
+			sfs.narrative = false;
+		}
+	}
+
 	void OnTriggerEnter(Collider other)
 	{
 		if (other.tag == "Player" && check == false) {
-			Debug.Log ("cc");
 			vea.GetComponent<VeaFollow>().wayPoint = narrative_waypoint;
 			vea.GetComponent<Animator> ().enabled = false;
 			sfs.Narrative (narrative_index);
-			StartCoroutine(WaitAndOpen ());
 			check = true;
 		}
 	}
@@ -44,7 +50,7 @@ public class NarrativeController : MonoBehaviour {
 
 	IEnumerator WaitAndOpen()
 	{
-		yield return new WaitForSeconds (10);
+		yield return new WaitForSeconds (1);
 		CameraShaker.Instance.ShakeOnce (1.15f, 3f, 0.1f, 5f);
 		door.GetComponent<Animator> ().Play ("Open_Door");
 		door.GetComponent<Animator> ().Play ("Door_Open");

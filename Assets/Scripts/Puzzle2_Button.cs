@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Puzzle2_Button : MonoBehaviour {
 
+	public SFS2X_Connect sfs;
+
 	public GameObject pz2controller;
 
 	public GameObject explosion;
@@ -14,14 +16,20 @@ public class Puzzle2_Button : MonoBehaviour {
 	private bool destroyed;
 	public bool pressed;
 
+	void Start()
+	{
+		sfs = GameObject.Find ("Network_Manager").GetComponent<SFS2X_Connect> ();
+	}
+
 	void OnTriggerStay(Collider other)
 	{
 		if (other.tag == "Player" && destroyed == true && pressed == false) {
 			if (Input.GetKeyDown (KeyCode.E)) {
-				Debug.Log ("Bouton appuyé");
+				outlinemesh.SetActive (false);
 				button.GetComponent<Animator> ().Play ("Button_On");
 				pz2controller.GetComponent<Puzzle2_Controller> ().code += buttonvalue;
 				pressed = true;
+				sfs.ButtonPuzzle2_Send (buttonvalue, pressed);
 			}
 		}
 
@@ -46,5 +54,6 @@ public class Puzzle2_Button : MonoBehaviour {
 	{
 		button.GetComponent<Animator> ().Play ("Idle");
 		pressed = false;
+		sfs.ButtonPuzzle2_Send (buttonvalue, pressed);
 	}
 }

@@ -58,11 +58,11 @@ public void Puzzle_1_First_Generation()
     int[] linefinal = {line_1picker, line_2picker, line_3picker, line_4picker, line_5picker};
     //
     //Calcul Line
-    int[] liner1 = {0,1,3,4,6,7,8,9,10,12,14,15,16,17,18,19,20,21,22,23};
-	int[] liner2 = {0,1,2,3,4,6,7,8,10,12,13,14,15,16,17,18,19,20,21,22,23};
-	int[] liner3 = {0,1,3,4,5,6,8,9,10,11,12,14,15,16,17,18,19,20,21,22,23};
-	int[] liner4 = {0,1,2,3,4,5,6,8,10,11,12,13,14,15,16,17,18,19,20,21,22,23};
-	int[] liner5 = {0,1,3,4,5,6,8,9,10,12,13,14,15,16,17,18,19,20,21,22,23};
+    	int[] liner1 = {2,3,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23};
+		int[] liner2 = {2,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23};
+		int[] liner3 = {3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23};
+		int[] liner4 = {0,1,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23};
+		int[] liner5 = {0,1,3,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23};
     //
     //Calcul Alphabet
     List<int> line_1 = CreateList(0, 1, 2, 3, 4);
@@ -182,11 +182,11 @@ public void Puzzle_1_First_Generation()
     }
     if(line_4picker == 2)
     {
-        Instantiate(puzzle_1_gooddalles[3], puzzle_1_line4[line_4[0]].position, puzzle_1_line4[line_4[0]].rotation, GameObject.Find("Line4").GetComponent<Transform>());
+        Instantiate(puzzle_1_gooddalles[2], puzzle_1_line4[line_4[0]].position, puzzle_1_line4[line_4[0]].rotation, GameObject.Find("Line4").GetComponent<Transform>());
     }
     if(line_4picker == 3)
     {
-        Instantiate(puzzle_1_gooddalles[2], puzzle_1_line4[line_4[0]].position, puzzle_1_line4[line_4[0]].rotation, GameObject.Find("Line4").GetComponent<Transform>());
+        Instantiate(puzzle_1_gooddalles[3], puzzle_1_line4[line_4[0]].position, puzzle_1_line4[line_4[0]].rotation, GameObject.Find("Line4").GetComponent<Transform>());
     }
     //
     //LINE5

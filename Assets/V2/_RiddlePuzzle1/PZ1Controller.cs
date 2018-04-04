@@ -6,7 +6,7 @@ using EZCameraShake;
 public class PZ1Controller : MonoBehaviour {
 
 	public string code;
-	public bool pz1entrancevalidate = false;
+	public bool pz1entrancevalidate;
 	private bool validate = false;
 
 	public GameObject veaspotlight;
@@ -32,6 +32,14 @@ public class PZ1Controller : MonoBehaviour {
 			dall2.GetComponent<PZ1Dall> ().BroadcastMessage ("Reboot");
 			dall3.GetComponent<PZ1Dall> ().BroadcastMessage ("Reboot");
 			dall4.GetComponent<PZ1Dall> ().BroadcastMessage ("Reboot");
+		}
+
+		if (pz1entrancevalidate == true) {
+			dall1.GetComponent<Animator> ().Play ("CA_Activate");
+			dall2.GetComponent<Animator> ().Play ("CA_Activate");
+			dall3.GetComponent<Animator> ().Play ("CA_Activate");
+			dall4.GetComponent<Animator> ().Play ("CA_Activate");
+			pz1entrancevalidate = false;
 		}
 	}
 }
