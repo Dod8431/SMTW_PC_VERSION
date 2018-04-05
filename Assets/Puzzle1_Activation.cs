@@ -40,7 +40,7 @@ public class Puzzle1_Activation : MonoBehaviour {
 			veaplayer.SetActive (false);
 			particles.SetActive (false);
 			doorentrance.GetComponent<Animator> ().Play ("Door_Close");
-			pillarsandsymbols.GetComponent<Animator> ().Play ("TimerPuzzle1");
+			//pillarsandsymbols.GetComponent<Animator> ().Play ("TimerPuzzle1");
 			check2 = true;
 		}
 	}

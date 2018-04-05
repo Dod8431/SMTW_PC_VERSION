@@ -16,6 +16,8 @@ public class Puzzle2_Controller : MonoBehaviour {
 	public GameObject woodpillar3;
 	public GameObject woodpillar4;
 
+	public GameObject vealaby;
+
 	void Start () {
 		
 	}
@@ -46,6 +48,7 @@ public class Puzzle2_Controller : MonoBehaviour {
 		yield return new WaitForSeconds (0.25f);
 		woodpillar4.GetComponent<Animator> ().Play ("WoodPillarValidate");
 		yield return new WaitForSeconds (0.25f);
+		vealaby.SetActive(true);
 
 	}
 
