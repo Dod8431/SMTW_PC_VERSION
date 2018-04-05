@@ -23,7 +23,8 @@ public class SFS2X_Connect : MonoBehaviour {
 	public bool awakeroomdoor = false;
 	public float veaposx;
 	public float veaposz;
-	public bool narrativeroom;
+	public bool narrativeroom1;
+	public bool narrativeroom2;
 	public bool mazevalidate;
 
 	SmartFox sfs;
@@ -84,6 +85,16 @@ public class SFS2X_Connect : MonoBehaviour {
 		sfs.ProcessEvents ();
 	}
 
+	void FixedUpdate()
+	{
+		int a = 0;
+		a++;
+		if (a > 30) {
+			Ping ();
+			a = 0;
+		}
+	}
+
 	void OnApplicationQuit()
 	{
 		if (sfs.IsConnected) {
@@ -103,7 +114,8 @@ public class SFS2X_Connect : MonoBehaviour {
 		veaposz = veapos.GetFloat ("PZ2Mazez");
 		awakeroomdoor = AwkRoom_Door.GetBool ("awakeroomopendoor");
 		pz1controller.GetComponent<PZ1Controller> ().pz1entrancevalidate = pz1valid.GetBool ("pz1entrancecomplete");
-		narrativeroom = narrativeroomCA.GetBool ("narrativeend");
+		narrativeroom1 = narrativeroomCA.GetBool ("narrativeend1");
+		narrativeroom2 = narrativeroomCA.GetBool ("narrativeend2");
 
 	}
 
@@ -183,5 +195,12 @@ public class SFS2X_Connect : MonoBehaviour {
 		ISFSObject indexScene = new SFSObject ();
 		indexScene.PutInt ("sceneIndex", index);
 		sfs.Send (new ObjectMessageRequest (indexScene));
+	}
+
+	void Ping()
+	{
+		ISFSObject ping = new SFSObject ();
+		ping.PutInt ("ping", 1);
+		sfs.Send (new ObjectMessageRequest (ping));
 	}
 }

@@ -24,10 +24,9 @@ public class NarrativeController : MonoBehaviour {
 
 	void Update()
 	{
-		if (sfs.narrativeroom == true) {
+		if (sfs.narrativeroom1 == true) {
 			StartCoroutine (WaitAndOpen ());
-			sfs.narrativeroom = false;
-			Destroy (this);
+			sfs.narrativeroom1 = false;
 		}
 	}
 

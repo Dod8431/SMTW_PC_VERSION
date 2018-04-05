@@ -35,15 +35,12 @@ public class Puzzle2_Controller : MonoBehaviour {
 		if (code.Length == 4 && code != "3412") {
 			code = "";
 			StartCoroutine (Error ());
-			button1.GetComponent<Puzzle2_Button> ().BroadcastMessage ("Reboot");
-			button2.GetComponent<Puzzle2_Button> ().BroadcastMessage ("Reboot");
-			button3.GetComponent<Puzzle2_Button> ().BroadcastMessage ("Reboot");
-			button4.GetComponent<Puzzle2_Button> ().BroadcastMessage ("Reboot");
 		}
 	}
 
 	IEnumerator Validate()
 	{
+		yield return new WaitForSeconds (0.25f);
 		woodpillar1.GetComponent<Animator> ().Play ("WoodPillarValidate");
 		yield return new WaitForSeconds (0.25f);
 		woodpillar2.GetComponent<Animator> ().Play ("WoodPillarValidate");
@@ -55,7 +52,7 @@ public class Puzzle2_Controller : MonoBehaviour {
 		vealaby.SetActive(true);
 		yield return new WaitForSeconds (2);
 		sfs.BroadcastMessage ("MainScene");
-		yield return new WaitForSeconds (4);
+		yield return new WaitForSeconds (10);
 		sfs.P2MiniGame ();
 		validate = true;
 
@@ -71,6 +68,13 @@ public class Puzzle2_Controller : MonoBehaviour {
 		yield return new WaitForSeconds (0.125f);
 		woodpillar4.GetComponent<Animator> ().Play ("WoodPillarError");
 		yield return new WaitForSeconds (0.125f);
+		button1.GetComponent<Puzzle2_Button> ().BroadcastMessage ("Reboot");
+		yield return new WaitForSeconds (0.125f);
+		button2.GetComponent<Puzzle2_Button> ().BroadcastMessage ("Reboot");
+		yield return new WaitForSeconds (0.125f);
+		button3.GetComponent<Puzzle2_Button> ().BroadcastMessage ("Reboot");
+		yield return new WaitForSeconds (0.125f);
+		button4.GetComponent<Puzzle2_Button> ().BroadcastMessage ("Reboot");
 
 	}
 }
