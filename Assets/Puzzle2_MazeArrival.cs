@@ -4,10 +4,17 @@ using UnityEngine;
 using EZCameraShake;
 
 public class Puzzle2_MazeArrival : MonoBehaviour {
-
+	public SFS2X_Connect sfs;
 	public bool p2mazevalidate;
+
+	void Start()
+	{
+		sfs = GameObject.Find ("Network_Manager").GetComponent<SFS2X_Connect> ();
+	}
+
 	void Update()
 	{
+		p2mazevalidate = sfs.mazevalidate;
 		if(p2mazevalidate == true)
 		{
 			StartCoroutine(Maze_End());

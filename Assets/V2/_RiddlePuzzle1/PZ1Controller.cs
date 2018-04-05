@@ -17,6 +17,7 @@ public class PZ1Controller : MonoBehaviour {
 	public GameObject dall4;
 
 	public GameObject door;
+	private bool checkvalidate;
 
 	void Update () 
 	{
@@ -34,12 +35,12 @@ public class PZ1Controller : MonoBehaviour {
 			dall4.GetComponent<PZ1Dall> ().BroadcastMessage ("Reboot");
 		}
 
-		if (pz1entrancevalidate == true) {
+		if (pz1entrancevalidate == true && checkvalidate == false) {
 			dall1.GetComponent<Animator> ().Play ("CA_Activate");
 			dall2.GetComponent<Animator> ().Play ("CA_Activate");
 			dall3.GetComponent<Animator> ().Play ("CA_Activate");
 			dall4.GetComponent<Animator> ().Play ("CA_Activate");
-			pz1entrancevalidate = false;
+			checkvalidate = true;
 		}
 	}
 }

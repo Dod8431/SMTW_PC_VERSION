@@ -24,9 +24,10 @@ public class NarrativeController : MonoBehaviour {
 
 	void Update()
 	{
-		if (sfs.narrative == true) {
+		if (sfs.narrativeroom == true) {
 			StartCoroutine (WaitAndOpen ());
-			sfs.narrative = false;
+			sfs.narrativeroom = false;
+			Destroy (this);
 		}
 	}
 
@@ -50,10 +51,10 @@ public class NarrativeController : MonoBehaviour {
 
 	IEnumerator WaitAndOpen()
 	{
+		Debug.Log ("cc");
 		yield return new WaitForSeconds (1);
 		CameraShaker.Instance.ShakeOnce (1.15f, 3f, 0.1f, 5f);
 		door.GetComponent<Animator> ().Play ("Open_Door");
-		door.GetComponent<Animator> ().Play ("Door_Open");
 		StopAllCoroutines ();
 	}
 }

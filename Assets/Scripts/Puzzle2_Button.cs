@@ -15,6 +15,7 @@ public class Puzzle2_Button : MonoBehaviour {
 	public string buttonvalue;
 	private bool destroyed;
 	public bool pressed;
+	public bool pressvalidate;
 
 	void Start()
 	{
@@ -25,11 +26,12 @@ public class Puzzle2_Button : MonoBehaviour {
 	{
 		if (other.tag == "Player" && destroyed == true && pressed == false) {
 			if (Input.GetKeyDown (KeyCode.E)) {
+				pressvalidate = true;
+				sfs.ButtonPuzzle2_Send (buttonvalue, pressvalidate);
 				outlinemesh.SetActive (false);
 				button.GetComponent<Animator> ().Play ("Button_On");
 				pz2controller.GetComponent<Puzzle2_Controller> ().code += buttonvalue;
 				pressed = true;
-				sfs.ButtonPuzzle2_Send (buttonvalue, pressed);
 			}
 		}
 

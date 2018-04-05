@@ -23,7 +23,8 @@ public class SFS2X_Connect : MonoBehaviour {
 	public bool awakeroomdoor = false;
 	public float veaposx;
 	public float veaposz;
-	public bool narrative;
+	public bool narrativeroom;
+	public bool mazevalidate;
 
 	SmartFox sfs;
 
@@ -95,17 +96,21 @@ public class SFS2X_Connect : MonoBehaviour {
 		ISFSObject pz1valid = (SFSObject)evt.Params ["message"];
 		ISFSObject AwkRoom_Door = (SFSObject)evt.Params ["message"];
 		ISFSObject veapos = (SFSObject)evt.Params ["message"];
+		ISFSObject narrativeroomCA = (SFSObject)evt.Params ["message"];
+		ISFSObject mazevalidateCA = (SFSObject)evt.Params["message"];
+		mazevalidate = mazevalidateCA.GetBool ("mazeValidate");
 		veaposx = veapos.GetFloat ("PZ2Mazex");
 		veaposz = veapos.GetFloat ("PZ2Mazez");
 		awakeroomdoor = AwkRoom_Door.GetBool ("awakeroomopendoor");
 		pz1controller.GetComponent<PZ1Controller> ().pz1entrancevalidate = pz1valid.GetBool ("pz1entrancecomplete");
+		narrativeroom = narrativeroomCA.GetBool ("narrativeend");
 
 	}
 
 	public void ButtonPuzzle2_Send(string button, bool value)
 	{
 		ISFSObject ButtonP2 = new SFSObject ();
-		ButtonP2.PutBool ("button", value);
+		ButtonP2.PutBool (button, value);
 		sfs.Send (new ObjectMessageRequest (ButtonP2));
 	}
 
@@ -141,10 +146,11 @@ public class SFS2X_Connect : MonoBehaviour {
 		sfs.Send (new ObjectMessageRequest (P2Entrance));
 	}
 
-	void P2MiniGame()
+	public void P2MiniGame()
 	{
 		ISFSObject P2MiniGame = new SFSObject ();
 		P2MiniGame.PutBool ("P2_Puzzle_Minigame", true);
+		P2MiniGame.PutInt ("sceneIndex", 7);
 		sfs.Send (new ObjectMessageRequest (P2MiniGame));
 	}
 

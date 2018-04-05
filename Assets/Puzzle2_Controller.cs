@@ -6,6 +6,8 @@ public class Puzzle2_Controller : MonoBehaviour {
 
 	public string code;
 
+	public SFS2X_Connect sfs;
+
 	public GameObject button1;
 	public GameObject button2;
 	public GameObject button3;
@@ -18,13 +20,15 @@ public class Puzzle2_Controller : MonoBehaviour {
 
 	public GameObject vealaby;
 
+	private bool validate;
+
 	void Start () {
-		
+		sfs = GameObject.Find ("Network_Manager").GetComponent<SFS2X_Connect> ();
 	}
 
 	void Update () 
 	{
-		if (code == "3412") {
+		if (code == "3412" && validate == false) {
 			StartCoroutine (Validate ());
 		}
 
@@ -49,6 +53,11 @@ public class Puzzle2_Controller : MonoBehaviour {
 		woodpillar4.GetComponent<Animator> ().Play ("WoodPillarValidate");
 		yield return new WaitForSeconds (0.25f);
 		vealaby.SetActive(true);
+		yield return new WaitForSeconds (2);
+		sfs.BroadcastMessage ("MainScene");
+		yield return new WaitForSeconds (4);
+		sfs.P2MiniGame ();
+		validate = true;
 
 	}
 
