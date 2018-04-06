@@ -83,6 +83,9 @@ public class SFS2X_Connect : MonoBehaviour {
 	void Update()
 	{
 		sfs.ProcessEvents ();
+		if (mazevalidate == true) {
+			Debug.Log ("cc2");
+		}
 	}
 
 	void FixedUpdate()
@@ -108,14 +111,14 @@ public class SFS2X_Connect : MonoBehaviour {
 		ISFSObject AwkRoom_Door = (SFSObject)evt.Params ["message"];
 		ISFSObject veapos = (SFSObject)evt.Params ["message"];
 		ISFSObject narrativeroomCA = (SFSObject)evt.Params ["message"];
-		ISFSObject mazevalidateCA = (SFSObject)evt.Params["message"];
-		mazevalidate = mazevalidateCA.GetBool ("mazeValidate");
+		ISFSObject mazeValidate = (SFSObject)evt.Params["message"];
 		veaposx = veapos.GetFloat ("PZ2Mazex");
 		veaposz = veapos.GetFloat ("PZ2Mazez");
 		awakeroomdoor = AwkRoom_Door.GetBool ("awakeroomopendoor");
 		pz1controller.GetComponent<PZ1Controller> ().pz1entrancevalidate = pz1valid.GetBool ("pz1entrancecomplete");
 		narrativeroom1 = narrativeroomCA.GetBool ("narrativeend1");
 		narrativeroom2 = narrativeroomCA.GetBool ("narrativeend2");
+		mazevalidate = mazeValidate.GetBool ("mazevalid");
 
 	}
 

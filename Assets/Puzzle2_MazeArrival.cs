@@ -6,6 +6,7 @@ using EZCameraShake;
 public class Puzzle2_MazeArrival : MonoBehaviour {
 	public SFS2X_Connect sfs;
 	public bool p2mazevalidate;
+	private bool check;
 
 	void Start()
 	{
@@ -14,10 +15,11 @@ public class Puzzle2_MazeArrival : MonoBehaviour {
 
 	void Update()
 	{
-		p2mazevalidate = sfs.mazevalidate;
-		if(p2mazevalidate == true)
+		//p2mazevalidate = sfs.mazevalidate;
+		if(sfs.mazevalidate == true && check == false)
 		{
 			StartCoroutine(Maze_End());
+			check = true;
 		}
 		
 	}

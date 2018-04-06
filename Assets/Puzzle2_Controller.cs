@@ -30,6 +30,7 @@ public class Puzzle2_Controller : MonoBehaviour {
 	{
 		if (code == "3412" && validate == false) {
 			StartCoroutine (Validate ());
+			validate = true;
 		}
 
 		if (code.Length == 4 && code != "3412") {
@@ -52,10 +53,8 @@ public class Puzzle2_Controller : MonoBehaviour {
 		vealaby.SetActive(true);
 		yield return new WaitForSeconds (2);
 		sfs.BroadcastMessage ("MainScene");
-		yield return new WaitForSeconds (10);
+		yield return new WaitForSeconds (5);
 		sfs.P2MiniGame ();
-		validate = true;
-
 	}
 
 	IEnumerator Error()
