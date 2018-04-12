@@ -9,6 +9,7 @@ using Sfs2X.Entities.Data;
 using Sfs2X.Entities.Variables;
 using Sfs2X.Requests;
 using Sfs2X.Logging;
+using UnityEngine.SceneManagement;
 
 public class SFS2X_Connect : MonoBehaviour {
 
@@ -18,7 +19,7 @@ public class SFS2X_Connect : MonoBehaviour {
 	public string UserName = "";
 	public string RoomName = "Lobby";
 
-	public GameObject pz1controller;
+	public bool pz1entrancevalidateCA;
 
 	public bool awakeroomdoor = false;
 	public float veaposx;
@@ -47,6 +48,7 @@ public class SFS2X_Connect : MonoBehaviour {
 		sfs.AddEventListener (SFSEvent.OBJECT_MESSAGE, OnObjectMessage);
 
 		sfs.Connect (ServerIP, ServerPort);
+		SceneManager.LoadScene(1);
 	}
 
 	void OnLogin(BaseEvent evt)
@@ -115,7 +117,7 @@ public class SFS2X_Connect : MonoBehaviour {
 		veaposx = veapos.GetFloat ("PZ2Mazex");
 		veaposz = veapos.GetFloat ("PZ2Mazez");
 		awakeroomdoor = AwkRoom_Door.GetBool ("awakeroomopendoor");
-		pz1controller.GetComponent<PZ1Controller> ().pz1entrancevalidate = pz1valid.GetBool ("pz1entrancecomplete");
+		pz1entrancevalidateCA = pz1valid.GetBool ("pz1entrancecomplete");
 		narrativeroom1 = narrativeroomCA.GetBool ("narrativeend1");
 		narrativeroom2 = narrativeroomCA.GetBool ("narrativeend2");
 		mazevalidate = mazeValidate.GetBool ("mazevalid");

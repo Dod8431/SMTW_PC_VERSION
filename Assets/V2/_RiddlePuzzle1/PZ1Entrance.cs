@@ -10,6 +10,7 @@ public class PZ1Entrance : MonoBehaviour {
 	public GameObject veaplayer;
 	public GameObject particles;
 	public GameObject doorentrance;
+	public Animator audiomain;
 	private bool check = false;
 	private bool check2 = false;
 
@@ -19,6 +20,7 @@ public class PZ1Entrance : MonoBehaviour {
 	void Start()
 	{
 		sfs = GameObject.Find ("Network_Manager").GetComponent<SFS2X_Connect> ();
+		audiomain = GameObject.Find("Audio_Manager").GetComponent<Animator>();
 	}
 
 	void OnTriggerStay(Collider other)
@@ -30,6 +32,7 @@ public class PZ1Entrance : MonoBehaviour {
 
 		if(Input.GetKey(KeyCode.E) && check2 == false)
 		{
+			audiomain.Play("Puzzle_Music_On");
 			sfs.BroadcastMessage ("P1RiddleEntrance");
 			pedestral.GetComponent<Animator> ().Play ("Activate");
 			foreach (GameObject o in pillars) {

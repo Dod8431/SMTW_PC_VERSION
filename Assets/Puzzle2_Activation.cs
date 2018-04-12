@@ -11,6 +11,7 @@ public class Puzzle2_Activation : MonoBehaviour {
 	public GameObject pedestral;
 	public GameObject veaplayer;
 	public GameObject particles;
+	public Animator audiomain;
 	private bool check = false;
 	private bool check2 = false;
 
@@ -18,6 +19,7 @@ public class Puzzle2_Activation : MonoBehaviour {
 	{
 		player = GameObject.Find ("Player");
 		sfs = GameObject.Find ("Network_Manager").GetComponent<SFS2X_Connect> ();
+		audiomain = GameObject.Find("Audio_Manager").GetComponent<Animator>();
 	}
 
 	void OnTriggerStay(Collider other)
@@ -29,6 +31,7 @@ public class Puzzle2_Activation : MonoBehaviour {
 
 		if(Input.GetKey(KeyCode.E) && check2 == false)
 		{
+			audiomain.Play("Puzzle_Music_On");
 			other.GetComponent<TriggersPlayer> ().activate = true;
 			sfs.BroadcastMessage ("P2Entrance");
 			pedestral.GetComponent<Animator> ().Play ("Activate");

@@ -13,6 +13,7 @@ public class Puzzle1_Activation : MonoBehaviour {
 	public GameObject particles;
 	public GameObject doorentrance;
 	public GameObject pillarsandsymbols;
+	public Animator audiomain;
 	public Transform deadrespawn;
 	private bool check = false;
 	private bool check2 = false;
@@ -21,6 +22,7 @@ public class Puzzle1_Activation : MonoBehaviour {
 	{
 		player = GameObject.Find ("Player");
 		sfs = GameObject.Find ("Network_Manager").GetComponent<SFS2X_Connect> ();
+		audiomain = GameObject.Find("Audio_Manager").GetComponent<Animator>();
 	}
 
 	void OnTriggerStay(Collider other)
@@ -32,6 +34,7 @@ public class Puzzle1_Activation : MonoBehaviour {
 
 		if(Input.GetKey(KeyCode.E) && check2 == false)
 		{
+			audiomain.Play("Puzzle_Music_On");
 			other.GetComponent<TriggersPlayer> ().activate = true;
 			sfs.BroadcastMessage ("P1Entrance");
 			pedestral.GetComponent<Animator> ().Play ("Activate");

@@ -18,6 +18,7 @@ public class ExplosionSource : MonoBehaviour
     {
         m_aFracturedObjects = FindObjectsOfType(typeof(FracturedObject)) as FracturedObject[];
         m_fStartTime        = Time.time;
+        this.gameObject.GetComponent<AudioSource>().Play();
     }
     
     void Update()

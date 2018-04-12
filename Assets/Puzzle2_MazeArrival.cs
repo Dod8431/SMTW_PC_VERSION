@@ -26,6 +26,8 @@ public class Puzzle2_MazeArrival : MonoBehaviour {
 
 	IEnumerator Maze_End()
 	{
+		GameObject.Find("Scaler").transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().enabled = false;
+		this.transform.GetChild(0).gameObject.SetActive(false);
 		yield return new WaitForSeconds(0.5f);
 		CameraShaker.Instance.ShakeOnce (1.5f,4f,6f,18f);
 		GetComponentInParent<Animator>().Play("MazeEnd");

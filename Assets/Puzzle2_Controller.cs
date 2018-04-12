@@ -50,15 +50,18 @@ public class Puzzle2_Controller : MonoBehaviour {
 		yield return new WaitForSeconds (0.25f);
 		woodpillar4.GetComponent<Animator> ().Play ("WoodPillarValidate");
 		yield return new WaitForSeconds (0.25f);
-		vealaby.SetActive(true);
+		
 		yield return new WaitForSeconds (2);
 		sfs.BroadcastMessage ("MainScene");
 		yield return new WaitForSeconds (5);
+		vealaby.SetActive(true);
+		yield return new WaitForSeconds(0.1f);
 		sfs.P2MiniGame ();
 	}
 
 	IEnumerator Error()
 	{
+		this.gameObject.GetComponent<AudioSource>().Play();
 		woodpillar1.GetComponent<Animator> ().Play ("WoodPillarError");
 		yield return new WaitForSeconds (0.125f);
 		woodpillar2.GetComponent<Animator> ().Play ("WoodPillarError");

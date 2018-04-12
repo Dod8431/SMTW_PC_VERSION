@@ -39,7 +39,7 @@ public class Puzzle2_Button : MonoBehaviour {
 			outlinemesh.SetActive (true);
 			if (Input.GetKeyDown (KeyCode.E)) {
 				explosion.GetComponent<ExplosionSource> ().enabled = true;
-				destroyed = true;
+				StartCoroutine(Wait());
 			}
 		}
 
@@ -57,5 +57,11 @@ public class Puzzle2_Button : MonoBehaviour {
 		button.GetComponent<Animator> ().Play ("Idle");
 		pressed = false;
 		sfs.ButtonPuzzle2_Send (buttonvalue, pressed);
+	}
+
+	IEnumerator Wait()
+	{
+		yield return new WaitForSeconds(0.1f);
+		destroyed = true;
 	}
 }

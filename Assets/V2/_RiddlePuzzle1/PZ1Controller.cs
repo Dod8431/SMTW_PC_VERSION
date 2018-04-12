@@ -9,6 +9,7 @@ public class PZ1Controller : MonoBehaviour {
 	public bool pz1entrancevalidate;
 	private bool validate = false;
 
+	public SFS2X_Connect sfs;
 	public GameObject veaspotlight;
 
 	public GameObject dall1;
@@ -17,10 +18,15 @@ public class PZ1Controller : MonoBehaviour {
 	public GameObject dall4;
 
 	public GameObject door;
-	private bool checkvalidate;
+	public bool checkvalidate;
 
+	void Start()
+	{
+		sfs = GameObject.Find("Network_Manager").GetComponent<SFS2X_Connect>();
+	}
 	void Update () 
 	{
+		pz1entrancevalidate = sfs.pz1entrancevalidateCA;
 		if (code == "1234" && validate == false) {
 			door.GetComponent<Animator> ().Play ("Door_Open");
 			CameraShaker.Instance.ShakeOnce (3f, 7f, 0.1f, 6f);
@@ -41,6 +47,7 @@ public class PZ1Controller : MonoBehaviour {
 			dall3.GetComponent<Animator> ().Play ("CA_Activate");
 			dall4.GetComponent<Animator> ().Play ("CA_Activate");
 			checkvalidate = true;
+			sfs.pz1entrancevalidateCA = false;
 		}
 	}
 }

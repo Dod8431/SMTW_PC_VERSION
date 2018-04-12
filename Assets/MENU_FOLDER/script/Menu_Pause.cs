@@ -28,7 +28,7 @@ public class Menu_Pause : MonoBehaviour {
         {
             if(GUI.Button(new Rect (Screen.width / 2 - 150, Screen.height /2 - 250, 300, 150), "Menu")){
                 isPaused = false;
-                UnityEngine.SceneManagement.SceneManager.LoadScene("Menus Principal");
+                UnityEngine.SceneManagement.SceneManager.LoadScene("1");
             }
 
             if (GUI.Button(new Rect(Screen.width / 2 - 150, Screen.height / 2 - 50, 300, 150), "Continue"))

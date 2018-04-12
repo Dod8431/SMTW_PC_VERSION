@@ -23,17 +23,20 @@ public class Objectives : MonoBehaviour
     public int objective_puzzle_2;
     private bool p1f = true;
 	public GameObject pillaractivation;
+    public Animator audiomain;
   
 void Start()
 {
 		sfs = GameObject.Find ("Network_Manager").GetComponent<SFS2X_Connect> ();
-    Puzzle_1_First_Generation();
+        audiomain = GameObject.Find("Audio_Manager").GetComponent<Animator>();
+        Puzzle_1_First_Generation();
 }
 
 void Update()
 {
         if(objective_puzzle_1 > 4 && p1f == true)
         {
+            audiomain.Play("Puzzle_Music_Off");
 			puzzle1door.GetComponent<Animator>().Play("Door_Open");
 			pillaractivation.GetComponent<Puzzle1_Activation> ().pillarsandsymbols.GetComponent<Animator> ().StopPlayback ();
 			sfs.BroadcastMessage ("MainScene");
@@ -58,11 +61,11 @@ public void Puzzle_1_First_Generation()
     int[] linefinal = {line_1picker, line_2picker, line_3picker, line_4picker, line_5picker};
     //
     //Calcul Line
-    	int[] liner1 = {2,3,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23};
-		int[] liner2 = {2,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23};
-		int[] liner3 = {3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23};
-		int[] liner4 = {0,1,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23};
-		int[] liner5 = {0,1,3,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23};
+    	int[] liner1 = {0,1,3,4,6,7,8,9,10,12,14,15,16,18,19,20,21,22,23};
+		int[] liner2 = {0,1,2,3,4,6,7,8,10,12,13,14,15,16,18,19,20,21,22,23};
+		int[] liner3 = {0,1,3,4,5,6,8,9,10,11,12,14,15,16,18,19,20,21,22,23};
+		int[] liner4 = {0,1,2,3,4,5,6,8,10,11,12,13,14,15,16,18,19,20,21,22,23};
+		int[] liner5 = {0,1,3,4,5,6,8,9,10,12,13,14,15,16,18,19,20,21,22,23};
     //
     //Calcul Alphabet
     List<int> line_1 = CreateList(0, 1, 2, 3, 4);
